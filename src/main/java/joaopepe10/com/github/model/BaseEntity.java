@@ -15,7 +15,7 @@ import java.util.UUID;
 public class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected UUID id;
+    protected Long id;
 
     @CreationTimestamp
     protected LocalDateTime createdAt;
