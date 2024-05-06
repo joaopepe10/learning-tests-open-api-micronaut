@@ -1,0 +1,61 @@
+openapi: 3.0.3
+info:
+  title: Election
+  description: |
+    Election of candidates for define who will be the next president.
+  version: 1.0.0
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+  - url: http://localhost:8080
+tags:
+  - name: election
+    description: Create a new election
+paths:
+  /user:
+    post:
+      tags:
+        - user
+      summary: Create user
+      description: Create a new user.
+      operationId: createUser
+      requestBody:
+        description: User object to be created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+components:
+  schemas:
+    UserRequest:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          example: John
+    UserResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          example: f0822b54-0720-11ee-be56-0242ac120002
+        name:
+          type: string
+          example: John
+        createdAt:
+          type: string
+          description: Creation date
+          format: date-time
