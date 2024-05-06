@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
-@Table
+@Table(name = "tbl_users")
 @NoArgsConstructor
 @AllArgsConstructor
 public class User extends BaseEntity{
