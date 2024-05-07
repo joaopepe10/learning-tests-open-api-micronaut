@@ -7,8 +7,7 @@ import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
 import org.hibernate.annotations.CreationTimestamp;
 
-import java.time.LocalDateTime;
-import java.util.UUID;
+import java.time.ZonedDateTime;
 
 @Getter
 @MappedSuperclass
@@ -18,5 +17,5 @@ public class BaseEntity {
     protected Long id;
 
     @CreationTimestamp
-    protected LocalDateTime createdAt;
+    protected ZonedDateTime createdAt;
 }
