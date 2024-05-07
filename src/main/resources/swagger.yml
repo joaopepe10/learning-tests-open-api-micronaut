@@ -19,7 +19,7 @@ paths:
         - user
       summary: Create user
       description: Create a new user.
-      operationId: createUser
+      operationId: save
       requestBody:
         description: User object to be created
         content:
