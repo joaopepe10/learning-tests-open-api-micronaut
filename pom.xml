@@ -22,6 +22,7 @@
         <micronaut.aot.enabled>false</micronaut.aot.enabled>
         <micronaut.aot.packageName>joaopepe10.com.github.aot.generated</micronaut.aot.packageName>
         <exec.mainClass>joaopepe10.com.github.Application</exec.mainClass>
+        <mapstruct.version>1.5.5.Final</mapstruct.version>
 
         <micronaut.openapi.generate.server>true</micronaut.openapi.generate.server>
         <micronaut.openapi.definition>src/main/resources/swagger.yml</micronaut.openapi.definition>
@@ -128,6 +129,17 @@
             <artifactId>modelmapper</artifactId>
             <version>${modelmapper.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>${mapstruct.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>2.2.224</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -224,6 +236,11 @@
                                     <artifactId>micronaut-inject</artifactId>
                                 </exclusion>
                             </exclusions>
+                        </path>
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>${mapstruct.version}</version>
                         </path>
                     </annotationProcessorPaths>
                     <compilerArgs>
