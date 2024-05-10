@@ -8,10 +8,7 @@ import org.mapstruct.MappingConstants;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.JSR330)
 public abstract class UserMapper {
-
-    /*public static final UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);*/
-
     public abstract UserResponse userToUserResponse(User user);
 
-    public abstract User userRequestToUser(UserRequest userRequest);
+    public abstract User toUser(UserRequest userRequest);
 }
