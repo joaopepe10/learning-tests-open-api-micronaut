@@ -16,8 +16,11 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
 
     @Override
-    public UserResponse save(UserRequest userRequest) {
-        var user = userMapper.userRequestToUser(userRequest);
+    public UserResponse save(UserRequest userRequest) throws Exception {
+        if (userRequest == null){
+            throw new RuntimeException("Do not possible save user");
+        }
+        var user = userMapper.toUser(userRequest);
         userRepository.save(user);
         return userMapper.userToUserResponse(user);
     }
