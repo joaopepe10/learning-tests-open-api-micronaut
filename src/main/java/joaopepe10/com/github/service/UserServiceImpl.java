@@ -31,9 +31,7 @@ public class UserServiceImpl implements UserService {
     public List<UserResponse> findAll() {
         var users = userRepository.findAll();
         var usersResponse = new ArrayList<UserResponse>();
-        for (var user : users){
-            usersResponse.add(userMapper.userToUserResponse(user));
-        }
+        users.forEach(user -> usersResponse.add(userMapper.userToUserResponse(user)));
         return usersResponse;
     }
 
