@@ -17,6 +17,8 @@
         <jdk.version>17</jdk.version>
         <release.version>17</release.version>
         <modelmapper.version>3.0.0</modelmapper.version>
+        <jwt.version>0.12.5</jwt.version>
+        <assertj.version>3.25.3</assertj.version>
         <micronaut.version>4.4.2</micronaut.version>
         <micronaut.runtime>netty</micronaut.runtime>
         <micronaut.aot.enabled>false</micronaut.aot.enabled>
@@ -142,6 +144,13 @@
         </dependency>
 
         <dependency>
+            <groupId>io.micronaut</groupId>
+            <artifactId>micronaut-http-client-jdk</artifactId>
+            <scope>compile</scope>
+        </dependency>
+
+
+        <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
             <version>${mapstruct.version}</version>
@@ -156,9 +165,10 @@
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>3.25.3</version>
+            <version>${assertj.version}</version>
             <scope>test</scope>
         </dependency>
+
 
     </dependencies>
     <build>
@@ -178,9 +188,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <!-- Uncomment to enable incremental compilation -->
-                    <!-- <useIncrementalCompilation>false</useIncrementalCompilation> -->
-
                     <annotationProcessorPaths combine.self="override">
                         <path>
                             <groupId>org.projectlombok</groupId>

@@ -9,11 +9,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.ZonedDateTime;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -30,6 +33,9 @@ class UserServiceImplTest {
     @Mock
     private UserMapper userMapper;
 
+    @Captor
+    private ArgumentCaptor<User> userArgumentCaptor;
+
     private User user;
 
     private UserRequest userRequest;
@@ -42,33 +48,40 @@ class UserServiceImplTest {
                 .id(20L)
                 .createdAt(ZonedDateTime.now())
                 .name("Joao Pedro")
-                .email("joao123@gmail.com")
                 .build();
-        userRequest = new UserRequest("Joao Pedro");
+        userRequest = new UserRequest(user.getName());
 
-        userResponse = new UserResponse();
-        userResponse.setCreatedAt(ZonedDateTime.now());
-        userResponse.setId("id");
-        userResponse.setName("Joao Pedro");
+        userResponse = new UserResponse()
+                .id(user.getName())
+                .createdAt(user.getCreatedAt());
     }
 
     @Test
     @DisplayName("Should save user with success")
     void shouldSaveUserWithSuccess() throws Exception {
         when(userMapper.toUser(any())).thenReturn(user);
-        when(userRepository.save(any())).thenReturn(user);
+        when(userRepository.save(userArgumentCaptor.capture())).thenReturn(user);
         when(userMapper.userToUserResponse(any())).thenReturn(userResponse);
 
         var userSaved = userService.save(userRequest);
         verify(userMapper, times(1)).toUser(any());
         verify(userRepository, times(1)).save(any());
 
+        var userCaptured = userArgumentCaptor.getValue();
         assertThat(userSaved).isNotNull();
+        assertThat(userSaved.getName()).isEqualTo(userCaptured.getName());
+        assertThat(userSaved.getCreatedAt()).isEqualTo(userCaptured.getCreatedAt());
     }
 
-    @Test()
-    @DisplayName("Should do not save when user is null")
-    void shouldDoNotSaveWhenUserIsNull() throws Exception {
-//        when(re)
+    @Test
+    @DisplayName("shouldReturnListWhenHaveUserInRepository")
+    void shouldReturnListWhenHaveUserInRepository(){
+        when(userRepository.findAll()).thenReturn(List.of(user));
+        when(userMapper.userToUserResponse(any())).thenReturn(userResponse);
+
+        var response = userService.save(any());
+
+        assertThat(response).isNotNull();
     }
+
 }

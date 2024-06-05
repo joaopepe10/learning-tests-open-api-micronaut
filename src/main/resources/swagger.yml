@@ -13,6 +13,20 @@ tags:
   - name: election
     description: Create a new election
 paths:
+  /request:
+    get:
+      tags:
+        - user
+      summary: Do to use api external
+      description: Return body some api
+      operationId: findRequest
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                 $ref: '#/components/schemas/ApiResponseBody'
   /user:
     post:
       tags:
@@ -84,6 +98,9 @@ components:
         name:
           type: string
           example: John
+        balance:
+          type: number
+          format: decimal
     UserResponse:
       type: object
       properties:
@@ -97,3 +114,12 @@ components:
           type: string
           description: Creation date
           format: date-time
+    ApiResponseBody:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 200
+        name:
+          type: string
+          example: John
